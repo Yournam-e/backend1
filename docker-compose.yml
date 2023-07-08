@@ -1,0 +1,19 @@
+version: 3
+services:
+  postgresql:
+    image: postgres
+    container_name: ogl
+    ports: - "5432:5432"
+    environment:
+      - POSTGRES_HOST = localhost
+      POSTGRES_USER: lesson
+      POSTGRES_PASSWORD= edu
+      PGDATA=edu
+    volumes:
+       - dbtuto:/data/postgres-tuto
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+volumes:
+    dbtuto:
+      external: true
