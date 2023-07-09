@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { users } from 'src/moks';
+import { users } from '../../moks/index';
 
 
 
