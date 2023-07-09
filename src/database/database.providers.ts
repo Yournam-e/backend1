@@ -10,9 +10,9 @@ export const databaseProviders = [
         dialect: 'postgres',
         host: 'localhost',
         port: 5432,
-        username: 'root',
+        username: 'postgres',
         password: 'admin',
-        database: 'nest-course',
+        database: 'nest-course'
       });
       sequelize.addModels([User]);
       await sequelize.sync();
