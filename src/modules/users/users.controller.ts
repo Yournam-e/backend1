@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateDto } from './dto/create-user.dto';
 
 interface IUser {
     _id: string;
@@ -13,7 +14,13 @@ export class UsersController {
     }
 
     @Get('getAll')
-    getUsers(){
-        return this.UsersService.getAll()
+    getOne(){
+        return this.UsersService.getOne()
+    }
+
+    @Post('create')
+    @UsePipes(new ValidationPipe)
+    create(@Body() createUserDto: CreateDto){
+        return this.UsersService.addUser(createUserDto)
     }
 }
