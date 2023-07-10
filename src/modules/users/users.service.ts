@@ -13,9 +13,14 @@ export class UsersService {
     
     constructor(@InjectRepository(User) private readonly userReposirory: Repository<User>){}
 
-    async getOne() {
-        
-    }
+    async findOne(email: string) {
+        return await this.userReposirory.findOne({
+            where: {
+                email: email
+            }
+        })
+
+      }
 
     async addUser(createUserDto: CreateDto){
         const existUser = await this.userReposirory.findOne({

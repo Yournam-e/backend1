@@ -9,13 +9,18 @@ import {TypeOrmModule} from '@nestjs/typeorm'
 import { Category } from '../category/entities/category.entity';
 import User from '../users/entities/user.entity';
 import { Transaction } from '../transactions/entities/transactions.untity';
+import { AuthModule } from '../auth/auth.module';
 
 
 @Module({
-  imports: [ConfigModule.forRoot({
+  imports: [
+    ConfigModule.forRoot({
     isGlobal: true,
     load: [configurations]
-  }), UsersModule, DogsModule, 
+  }), 
+  UsersModule, 
+  DogsModule,
+  AuthModule,
   TypeOrmModule.forRootAsync({
     imports: [ConfigModule],
     useFactory: (configService: ConfigService)=>({
