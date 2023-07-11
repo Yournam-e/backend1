@@ -10,6 +10,7 @@ import { Category } from '../category/entities/category.entity';
 import User from '../users/entities/user.entity';
 import { Transaction } from '../transactions/entities/transactions.untity';
 import { AuthModule } from '../auth/auth.module';
+import { CategoryModule } from '../category/category.module';
 
 
 @Module({
@@ -21,6 +22,7 @@ import { AuthModule } from '../auth/auth.module';
   UsersModule, 
   DogsModule,
   AuthModule,
+  CategoryModule,
   TypeOrmModule.forRootAsync({
     imports: [ConfigModule],
     useFactory: (configService: ConfigService)=>({

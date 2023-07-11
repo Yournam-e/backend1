@@ -5,13 +5,14 @@ import User from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateDto } from './dto/create-user.dto';
 import * as argon2 from 'argon2'
+import { JwtService } from '@nestjs/jwt';
 
 
 
 @Injectable()
 export class UsersService {
     
-    constructor(@InjectRepository(User) private readonly userReposirory: Repository<User>){}
+    constructor(private jwtService: JwtService, @InjectRepository(User) private readonly userReposirory: Repository<User>){}
 
     async findOne(email: string) {
         return await this.userReposirory.findOne({
@@ -34,6 +35,19 @@ export class UsersService {
             email: createUserDto.email,
             password: await argon2.hash(createUserDto.password)
         })
-        return {user}
+
+
+        const newUser = await this.userReposirory.findOne({
+            where: {
+                email: createUserDto.email,
+            }
+        })
+
+        
+        return {
+            id: newUser.id, 
+            email: newUser.email, 
+            token: this.jwtService.sign({id: newUser.id, email: newUser.email})
+        }
     }
 }
