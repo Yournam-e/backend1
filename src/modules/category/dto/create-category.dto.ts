@@ -6,9 +6,6 @@ export class CreateCategoryDto{
     @IsNotEmpty()
     title: string
 
-    @IsNumber()
-    @IsNotEmpty()
-    userId: number
 
     @IsOptional()
     user?: User
