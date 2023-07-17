@@ -11,33 +11,25 @@ import User from '../users/entities/user.entity';
 import { Transaction } from '../transactions/entities/transactions.untity';
 import { AuthModule } from '../auth/auth.module';
 import { CategoryModule } from '../category/category.module';
-const redis = require("redis");
+import { CacheModule } from '@nestjs/cache-manager';
 
-
-async function lol(){
-  const client = await redis.createClient({url: "redis://default:f62bae635d7b4831bf0d6ff85ccadceb@firm-kit-43136.kv.vercel-storage.com:43136"});
-
-  await client.connect()
-  client.on("error", function(error) {
-    console.error(error);
-  });
-
-  client.set('framework', 'AngularJS', function(err, reply) { console.log(reply); }); 
-
-
-  
- 
-  client.get('key', function(err, reply) { console.log(reply); }); 
-}
-
-
-lol()
+import * as redisStore from 'cache-manager-ioredis';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
     isGlobal: true,
     load: [configurations]
+  }),
+  CacheModule.register({
+    isGlobal: true,
+    useFactory: async () => ({
+      store: redisStore as any,
+      host: 'firm-kit-43136.kv.vercel-storage.com',
+      port: 43136,
+      username: 'default', 
+      password: 'f62bae635d7b4831bf0d6ff85ccadceb',
+  }),
   }), 
   UsersModule, 
   DogsModule,

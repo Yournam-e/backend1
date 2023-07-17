@@ -10,8 +10,12 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get("ok")
-  async getOk(){
-    return this.appService.lol()
+  @Get('get')
+  async getIt(): Promise<string> {
+    return await this.appService.getIs();
+  }
+  @Get('set')
+  async setIt(): Promise<string> {
+    return this.appService.setHello();
   }
 }
