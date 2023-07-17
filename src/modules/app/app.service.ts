@@ -12,14 +12,14 @@ export class AppService {  constructor(
   }
 
 
-  async getIs(): Promise<any> {
-    let d = await this.cacheManager.get('id1')
+  async getIs(id: string): Promise<any> {
+    let d = await this.cacheManager.get(id)
     console.log(d)
     return d
   }
 
-  async setHello(): Promise<string> {
-    await this.cacheManager.set('id1', "value")
+  async setHello(id: string, value: string): Promise<string> {
+    await this.cacheManager.set(id, value)
     return 'ok!';
   }
 

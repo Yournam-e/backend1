@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,12 +10,12 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('get')
-  async getIt(): Promise<string> {
-    return await this.appService.getIs();
+  @Get('get/:id')
+  async getIt(@Param('id') id: string): Promise<string> {
+    return await this.appService.getIs(id);
   }
-  @Get('set')
-  async setIt(): Promise<string> {
-    return this.appService.setHello();
+  @Get('set/:id/:value')
+  async setIt(@Param('id') id: string, @Param('value') value: string): Promise<string> {
+    return this.appService.setHello(id, value);
   }
 }
